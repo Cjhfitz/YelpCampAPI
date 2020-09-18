@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Campground = require("../models/campground");
 const middleware = require("../middleware");
+const campground = require("../models/campground");
+const e = require("express");
 
 // INDEX Route
 router.get("/", (req, res) => {
@@ -31,19 +33,42 @@ router.post("/", (req, res) => {
         if(err) {
             console.log(err.message);
         } else {
-            // res.redirect("/campgrounds");
             res.send(createdCampground)
         }
     });
 
 });
-// // EDIT Route
-// router.get();
 // // UPDATE Route
-// router.put();
+router.put("/:id", (req, res) => {
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
 // // SHOW Route
-// router.get();
+router.get("/:id", (req, res) => {
+    Campground.findById(req.params.id).populate("comments").exec((err, campground) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.send(campground);
+        }
+    });
+});
+
 // // DESTROY Route
-// router.delete();
+router.delete("/:id", (req, res) => {
+    Campground.findByIdAndRemove(req.params.id, (err) => {
+        if(err) {
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
+});
 
 module.exports = router;
