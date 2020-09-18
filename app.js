@@ -12,9 +12,16 @@ const express = require("express"),
 
 dotenv.config();
 
-app.get("/", (req, res) => {
-    res.send("Hello from root route");
+const campgroundRoutes = require("./routes/campgrounds");
+
+app.use("/campgrounds", campgroundRoutes);
+
+mongoose.connect(process.env.DATABASEURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
+.then(() => { console.log("Connected to DB!")})
+.catch((err) => {console.log(err.message)});
 
 
 app.listen(process.env.PORT, () => {
