@@ -5,7 +5,6 @@ const express = require("express"),
       methodOverride = require("method-override"),
       
       mongoose = require("mongoose"),
-      Campground = require("./models/campground"),
       
       passport = require("passport"),
       LocalStrategy = require("passport-local");
@@ -16,8 +15,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 
 const campgroundRoutes = require("./routes/campgrounds");
+const commentRoutes = require("./routes/comments");
 
 app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/comments", commentRoutes);
 
 mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true,
