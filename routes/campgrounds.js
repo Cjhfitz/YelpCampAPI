@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
     let description = re.body.description;
     let author = {
         id: req.user_id,
-        username: req.body.username;
+        username: req.body.username
     };
 
     let newCampground = {name: name, price: price, image: image, description: description, author: author}
