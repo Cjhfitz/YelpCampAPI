@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
     let name = req.body.name;
     let price = req.body.price;
     let image = req.body.image;
-    let description = re.body.description;
+    let description = req.body.description;
     let author = {
         id: req.user_id,
         username: req.body.username
@@ -31,18 +31,19 @@ router.post("/", (req, res) => {
         if(err) {
             console.log(err.message);
         } else {
-            res.redirect("/campgrounds")
+            // res.redirect("/campgrounds");
+            res.send(createdCampground)
         }
     });
 
 });
-// EDIT Route
-router.get();
-// UPDATE Route
-router.put();
-// SHOW Route
-router.get();
-// DESTROY Route
-router.delete();
+// // EDIT Route
+// router.get();
+// // UPDATE Route
+// router.put();
+// // SHOW Route
+// router.get();
+// // DESTROY Route
+// router.delete();
 
 module.exports = router;

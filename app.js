@@ -12,6 +12,9 @@ const express = require("express"),
 
 dotenv.config();
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
+
 const campgroundRoutes = require("./routes/campgrounds");
 
 app.use("/campgrounds", campgroundRoutes);
