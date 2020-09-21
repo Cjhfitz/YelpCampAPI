@@ -28,6 +28,7 @@ router.post("/", (req, res) => {
         }
     });
 });
+
 // UPDATE Route
 router.put("/:comment_id/", middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {

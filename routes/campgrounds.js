@@ -36,6 +36,18 @@ router.post("/", (req, res) => {
     });
 
 });
+
+// EDIT Route
+router.get("/:id/edit", (req, res) => {
+    Campground.findById(req.params.id, (err, foundCampground) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.send(foundCampground);
+        }
+    });
+});
+
 // // UPDATE Route
 router.put("/:id", (req, res) => {
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
