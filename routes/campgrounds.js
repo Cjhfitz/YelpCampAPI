@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 // CREATE Route
-router.post("/", (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
     let name = req.body.name;
     let price = req.body.price;
     let image = req.body.image;
@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
 });
 
 // EDIT Route
-router.get("/:id/edit", (req, res) => {
+router.get("/:id/edit", middleware.checkCampgroundOwnership, (req, res) => {
     Campground.findById(req.params.id, (err, foundCampground) => {
         if(err) {
             console.log(err);
@@ -49,7 +49,7 @@ router.get("/:id/edit", (req, res) => {
 });
 
 // // UPDATE Route
-router.put("/:id", (req, res) => {
+router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
         if(err) {
             console.log(err);
@@ -71,7 +71,7 @@ router.get("/:id", (req, res) => {
 });
 
 // // DESTROY Route
-router.delete("/:id", (req, res) => {
+router.delete("/:id", middleware.checkCampgroundOwnership, (req, res) => {
     Campground.findByIdAndRemove(req.params.id, (err) => {
         if(err) {
             res.redirect("/campgrounds");

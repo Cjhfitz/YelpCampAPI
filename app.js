@@ -5,6 +5,7 @@ const express = require("express"),
       methodOverride = require("method-override"),
       
       mongoose = require("mongoose"),
+      User = require("./models/user"),
       
       passport = require("passport"),
       LocalStrategy = require("passport-local");
@@ -30,24 +31,21 @@ mongoose.connect(process.env.DATABASEURL, {
 .catch((err) => {console.log(err.message)});
 
 // PASSPORT CONFIGURATION
-// app.use(require("express-session")({
-//     secret: process.env.SECRET,
-//     resave:false,
-//     saveUninitialized: false
-// }));
+app.use(require("express-session")({
+    secret: process.env.SECRET,
+    resave:false,
+    saveUninitialized: false
+}));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-// passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-// app.use(function(req, res, next) {
-//     res.locals.currentUser = req.user;
-//     next();
-// });
+
 
 app.listen(process.env.PORT, () => {
     console.log("App is running on port: " + process.env.PORT);
-})
+});

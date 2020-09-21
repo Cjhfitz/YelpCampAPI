@@ -5,7 +5,7 @@ const Comment = require("../models/comment");
 const middleware = require("../middleware/index");
 
 // CREATE Route
-router.post("/", (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
     Campground.findById(req.params.id, middleware.isLoggedIn, (err, foundCampground) => {
         if(err) {
             console.log(err)
@@ -25,6 +25,17 @@ router.post("/", (req, res) => {
                     res.redirect("/campgrounds/" + foundCampground._id);
                 }
             });
+        }
+    });
+});
+
+// Comment EDIT Route
+router.get("/:comment_id/edit", middleware.checkCommentOwnership, (req, res) => {
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
+        if(err) {
+            res.redirect("back");
+        } else {
+            res.send({comment: foundComment, campground_id: req.params.id});
         }
     });
 });
