@@ -31,18 +31,18 @@ mongoose.connect(process.env.DATABASEURL, {
 .catch((err) => {console.log(err.message)});
 
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
-    secret: process.env.SECRET,
-    resave:false,
-    saveUninitialized: false
-}));
+// app.use(require("express-session")({
+//     secret: process.env.SECRET,
+//     resave:false,
+//     saveUninitialized: false
+// }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 
 
