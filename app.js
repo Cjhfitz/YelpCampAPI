@@ -3,6 +3,7 @@ const express = require("express"),
       dotenv = require("dotenv"),
       bodyParser = require("body-parser"),
       methodOverride = require("method-override"),
+      cors = require("cors"),
       
       mongoose = require("mongoose"),
       User = require("./models/user"),
@@ -17,6 +18,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use(methodOverride("_method"));
+
+app.use(cors());
 
 const campgroundRoutes = require("./routes/campgrounds");
 const commentRoutes = require("./routes/comments");
