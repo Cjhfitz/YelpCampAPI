@@ -13,8 +13,29 @@ const express = require("express"),
 
 dotenv.config();
 
+/**
+ * app.use(bodyParser.urlencoded({extended: true}));
+ *  tells the application to use a urlencoded body parser with the request property
+ *  when recieving urlencoded bodies.
+ * 
+ * bodyParser.urlencoded({extended: true})
+ *  Returns middleware that handles urlencoded bodies. Only look at requests where the 
+ *  Content-type header matches the type option.
+ * 
+ * This parser only accepts UTF-8 encoding of the body.
+ */
 app.use(bodyParser.urlencoded({extended: true}));
-// parse application/json
+
+
+/**
+ * app.use(bodyParser.json());
+ *  tells the application to use a json parser with the request property when recieving
+ *  request containing json in the body.  Only look at requests where the 
+ *  Content-type header matches the type option.
+ * 
+ * bodyParser.json()
+ *  returns middleware for handling json
+ */
 app.use(bodyParser.json());
 
 app.use(methodOverride("_method"));

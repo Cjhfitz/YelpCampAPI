@@ -7,8 +7,10 @@ const middleware = require("../middleware");
 router.get("/", (req, res) => {
     Campground.find({}, (err, allCampgrounds) => {
         if(err) {
+            res.status(500);
             console.log(err);
         } else {
+            res.status(200);
             res.send(allCampgrounds);
         }
     });
@@ -30,8 +32,10 @@ router.post("/", (req, res) => {
 
     Campground.create(newCampground, (err, createdCampground) => {
         if(err) {
+            res.status(500);
             console.log(err.message);
         } else {
+            res.status(200);
             res.send(createdCampground)
         }
     });
@@ -43,8 +47,10 @@ router.post("/", (req, res) => {
 router.get("/:id/edit", (req, res) => {
     Campground.findById(req.params.id, (err, foundCampground) => {
         if(err) {
+            res.status(500);
             console.log(err);
         } else {
+            res.status(200);
             res.send(foundCampground);
         }
     });
@@ -53,11 +59,14 @@ router.get("/:id/edit", (req, res) => {
 // UPDATE Route
 // middleware.checkCampgroundOwnership,
 router.put("/:id", (req, res) => {
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
+    Campground.findByIdAndUpdate(req.params.id, req.body, (err, updatedCampground) => {
         if(err) {
+            res.status(500);
             console.log(err);
         } else {
-            res.redirect("/campgrounds/" + req.params.id);
+            res.status(300);
+            console.log(req.params.id);
+            // res.redirect("/campgrounds/" + req.params.id);  // send user back to SHOW page
         }
     });
 });
@@ -66,8 +75,10 @@ router.put("/:id", (req, res) => {
 router.get("/:id", (req, res) => {
     Campground.findById(req.params.id).populate("comments").exec((err, campground) => {
         if(err) {
+            res.status(500);
             console.log(err);
         } else {
+            res.status(200);
             res.send(campground);
         }
     });
