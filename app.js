@@ -38,6 +38,7 @@ app.use(bodyParser.urlencoded({extended: true}));
  */
 app.use(bodyParser.json());
 
+// allows us to use put and delete verbs where the client may not support them (forms)
 app.use(methodOverride("_method"));
 
 app.use(cors());

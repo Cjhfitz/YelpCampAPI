@@ -4,12 +4,13 @@ const Campground = require("../models/campground");
 const middleware = require("../middleware");
 
 // INDEX Route
-router.get("/", (req, res) => {
-    Campground.find({}, (err, allCampgrounds) => {
+router.get("/", async (req, res) => {
+    await Campground.find({}, (err, allCampgrounds) => {
         if(err) {
             res.status(500);
             console.log(err);
         } else {
+            console.log(allCampgrounds);
             res.status(200);
             res.send(allCampgrounds);
         }
@@ -18,7 +19,7 @@ router.get("/", (req, res) => {
 
 // CREATE Route
 // middleware.isLoggedIn,
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     let name = req.body.name;
     let price = req.body.price;
     let image = req.body.image;
@@ -30,7 +31,7 @@ router.post("/", (req, res) => {
 
     let newCampground = {name: name, price: price, image: image, description: description} //, author: author
 
-    Campground.create(newCampground, (err, createdCampground) => {
+    await Campground.create(newCampground, (err, createdCampground) => {
         if(err) {
             res.status(500);
             console.log(err.message);
@@ -44,8 +45,8 @@ router.post("/", (req, res) => {
 
 // EDIT Route
 // middleware.checkCampgroundOwnership,
-router.get("/:id/edit", (req, res) => {
-    Campground.findById(req.params.id, (err, foundCampground) => {
+router.get("/:id/edit", async (req, res) => {
+    await Campground.findById(req.params.id, (err, foundCampground) => {
         if(err) {
             res.status(500);
             console.log(err);
@@ -58,8 +59,8 @@ router.get("/:id/edit", (req, res) => {
 
 // UPDATE Route
 // middleware.checkCampgroundOwnership,
-router.put("/:id", (req, res) => {
-    Campground.findByIdAndUpdate(req.params.id, req.body, (err, updatedCampground) => {
+router.put("/:id", async(req, res) => {
+    await Campground.findByIdAndUpdate(req.params.id, req.body, (err, updatedCampground) => {
         if(err) {
             res.status(500);
             console.log(err);
@@ -72,8 +73,8 @@ router.put("/:id", (req, res) => {
 });
 
 // SHOW Route
-router.get("/:id", (req, res) => {
-    Campground.findById(req.params.id).populate("comments").exec((err, campground) => {
+router.get("/:id", async (req, res) => {
+    await Campground.findById(req.params.id).populate("comments").exec((err, campground) => {
         if(err) {
             res.status(500);
             console.log(err);
