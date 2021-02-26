@@ -2,20 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Campground = require("../models/campground");
 const middleware = require("../middleware");
+const campgroundController = require('../controllers/campground');
 
 // INDEX Route
-router.get("/", async (req, res) => {
-    await Campground.find({}, (err, allCampgrounds) => {
-        if(err) {
-            res.status(500);
-            console.log(err);
-        } else {
-            console.log(allCampgrounds);
-            res.status(200);
-            res.send(allCampgrounds);
-        }
-    });
-});
+router.route('/')
+    .get(campgroundController.index)
 
 // CREATE Route
 // middleware.isLoggedIn,
