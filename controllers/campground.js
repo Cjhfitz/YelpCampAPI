@@ -6,7 +6,7 @@ module.exports.index = async (req, res) => {
     res.send(campgrounds);
 }
 
-module.exports.showCampground = async (req, res) => {
+module.exports.showOrEditCampground = async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.send(campground);
 }
@@ -16,14 +16,15 @@ module.exports.createCampground = async (req, res) => {
     await newCampground.save();
 }
 
-module.exports.editCampground = async (req, res) => {
-    res.send("Hello from campground controller edit route!!!")
-}
+// module.exports.editCampground = async (req, res) => {
+//     const campground = await Campground.findById(req.params.id);
+//     res.send(campground);
+// }
 
 module.exports.updateCampground = async (req, res) => {
-    
+    await Campground.findByIdAndUpdate(req.params.id, req.body);
 }
 
 module.exports.deleteCampground = async (req, res) => {
-    
+    await Campground.findByIdAndDelete(req.params.id);
 }
