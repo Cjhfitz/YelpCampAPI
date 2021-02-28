@@ -11,7 +11,7 @@ router.route('/')
 
 // SHOW, UPDATE, and DELETE (all use "/:id")
 router.route("/:id")
-    .get(campgroundController.showOrEditCampground)
+    .get(campgroundController.getCampground)
     .put(campgroundController.updateCampground)
     .delete(campgroundController.deleteCampground);
 
@@ -20,7 +20,7 @@ router.route("/:id")
 // EDIT Route
 // middleware.checkCampgroundOwnership,
 router.route("/:id/edit")
-    .get(campgroundController.showOrEditCampground);
+    .get(campgroundController.getCampground);
 ;
 
 module.exports = router;

@@ -6,7 +6,8 @@ module.exports.index = async (req, res) => {
     res.send(campgrounds);
 }
 
-module.exports.showOrEditCampground = async (req, res) => {
+// For SHOW and EDIT routes
+module.exports.getCampground = async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.send(campground);
 }
