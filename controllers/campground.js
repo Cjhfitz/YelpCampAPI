@@ -2,8 +2,13 @@ const Campground = require('../models/campground');
 
 
 module.exports.index = async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.send(campgrounds);
+    try {
+        throw new Error('oops');
+        const campgrounds = await Campground.find({});
+        res.send(campgrounds);
+    } catch(e) {
+        res.send(e.message)
+    }
 }
 
 // For SHOW and EDIT routes

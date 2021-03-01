@@ -9,9 +9,13 @@ const express = require("express"),
       User = require("./models/user"),
       
       passport = require("passport"),
-      LocalStrategy = require("passport-local");
+      LocalStrategy = require("passport-local")
+
+      appError = require('./util/AppError');
 
 dotenv.config();
+
+app.use(cors());
 
 /**
  * app.use(bodyParser.urlencoded({extended: true}));
@@ -40,8 +44,6 @@ app.use(bodyParser.json());
 
 // allows us to use put and delete verbs where the client may not support them (forms)
 app.use(methodOverride("_method"));
-
-app.use(cors());
 
 const campgroundRoutes = require("./routes/campgrounds");
 const commentRoutes = require("./routes/comments");
@@ -72,7 +74,9 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/", indexRoutes);
 
-
+app.use((err, req, res, next) => {
+    res.send("Something went wrong!!!")
+})
 
 app.listen(process.env.PORT, () => {
     console.log("App is running on port: " + process.env.PORT);
