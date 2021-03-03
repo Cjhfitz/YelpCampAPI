@@ -1,4 +1,5 @@
 const Campground = require('../models/campground');
+const wrapAsync = require('../util/wrapAsync');
 
 
 module.exports.index = wrapAsync(async (req, res) => {
@@ -6,13 +7,7 @@ module.exports.index = wrapAsync(async (req, res) => {
     res.send(campgrounds); 
 });
 
-// returns a new function
-// executes function passed and adds .catch() and handles error
-function wrapAsync(fn) {
-    return function(req, res, next) {
-        fn(req, res, next).catch(err => next(err));
-    }
-};
+
 
 // For SHOW and EDIT routes
 module.exports.getCampground = wrapAsync(async (req, res) => {
