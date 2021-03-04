@@ -75,7 +75,10 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/", indexRoutes);
 
 app.use((err, req, res, next) => {
-    res.send("Something went wrong!!!")
+    // deconstruction of status and message from the Error
+    const {status = err.status, message = err.message} = err;
+    // setting the status and message
+    res.status(status).send(message);
 })
 
 app.listen(process.env.PORT, () => {

@@ -1,4 +1,5 @@
 const Campground = require('../models/campground');
+const AppError = require('../util/AppError');
 const wrapAsync = require('../util/wrapAsync');
 
 
