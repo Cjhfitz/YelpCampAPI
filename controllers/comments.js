@@ -33,16 +33,16 @@ module.exports.createComment = wrapAsync( async (req, res) => {
 
 // Comment EDIT Route
 // middleware.checkCommentOwnership,
-// module.exports.editComment = wrapAsync(async (req, res) => {
-//     Comment.findById(req.params.comment_id, (err, foundComment) => {
-//         if(err) {
-//             res.redirect("back");
-//         } else {
+module.exports.getComment = wrapAsync(async (req, res) => {
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
+        if(err) {
+            res.redirect("back");
+        } else {
             
-//             res.send({comment: foundComment, campground_id: req.params.id});
-//         }
-//     });
-// });
+            res.send({comment: foundComment, campground_id: req.params.id});
+        }
+    });
+});
 
 module.exports.updateComment = wrapAsync(async (req, res) => {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {
@@ -54,30 +54,12 @@ module.exports.updateComment = wrapAsync(async (req, res) => {
     });
 });
 
-
-
-
-
-// UPDATE Route
-// middleware.checkCommentOwnership,
-// router.put("/:comment_id/", (req, res) => {
-//     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {
-//         if(err) {
-//             res.redirect("back")
-//         } else {
-//             res.redirect("/campgrounds/" + req.params.id);
-//         }
-//     });
-// });
-
-// DESTROY Route
-// middleware.checkCommentOwnership,
-// router.delete("/:comment_id/", (req, res)=> {
-//     Comment.findByIdAndDelete(req.params.comment_id, (err) => {
-//         if(err) {
-//             res.redirect("back");
-//         } else {
-//             res.redirect("/campgrounds/" + req.params.id);
-//         }
-//     });
-// });
+module.exports.deleteComment = wrapAsync(async (req, res)=> {
+    Comment.findByIdAndDelete(req.params.comment_id, (err) => {
+        if(err) {
+            res.redirect("back");
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
