@@ -33,13 +33,23 @@ module.exports.createComment = wrapAsync( async (req, res) => {
 
 // Comment EDIT Route
 // middleware.checkCommentOwnership,
-module.exports.edit = wrapAsync(async (req, res) => {
-    Comment.findById(req.params.comment_id, (err, foundComment) => {
-        if(err) {
-            res.redirect("back");
-        } else {
+// module.exports.editComment = wrapAsync(async (req, res) => {
+//     Comment.findById(req.params.comment_id, (err, foundComment) => {
+//         if(err) {
+//             res.redirect("back");
+//         } else {
             
-            res.send({comment: foundComment, campground_id: req.params.id});
+//             res.send({comment: foundComment, campground_id: req.params.id});
+//         }
+//     });
+// });
+
+module.exports.updateComment = wrapAsync(async (req, res) => {
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {
+        if(err) {
+            res.redirect("back")
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
         }
     });
 });

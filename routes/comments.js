@@ -7,7 +7,10 @@ const commentController = require("../controllers/comments");
 
 
 router.route("/")
-    .post(commentController.createComment)
+    .post(commentController.createComment);
+
+router.route("/:comment_id/")
+    .put(commentController.updateComment);
 
 
 module.exports = router;
