@@ -8,8 +8,6 @@ module.exports.index = wrapAsync(async (req, res) => {
     res.send(campgrounds); 
 });
 
-
-
 // For SHOW and EDIT routes
 module.exports.getCampground = wrapAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);

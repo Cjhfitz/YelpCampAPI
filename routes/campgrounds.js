@@ -3,7 +3,6 @@ const router = express.Router();
 const Campground = require("../models/campground");
 const middleware = require("../middleware");
 const campgroundController = require('../controllers/campground');
-const AppError = require("../util/AppError");
 
 
 router.route('/')

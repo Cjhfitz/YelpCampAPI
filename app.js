@@ -76,7 +76,7 @@ app.use("/", indexRoutes);
 
 app.use((err, req, res, next) => {
     // deconstruction of status and message from the Error
-    const {status = err.status, message = err.message} = err;
+    const {status = 500, message = "Something went wrong"} = err;
     // setting the status and message
     res.status(status).send(message);
 })
